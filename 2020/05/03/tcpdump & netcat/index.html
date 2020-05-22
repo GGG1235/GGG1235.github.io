@@ -7,8 +7,8 @@ tcpdump - dump traffic on a network
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tcpdump [ -AbdDefhHIJKlLnNOpqStuUvxX# ] [ -B buffer_size ]</span><br><span class="line"></span><br><span class="line">         [ -c count ] [ --count ] [ -C file_size ]</span><br><span class="line">         [ -E spi@ipaddr algo:secret,... ]</span><br><span class="line">         [ -F file ] [ -G rotate_seconds ] [ -i interface ]</span><br><span class="line">         [ --immediate-mode ] [ -j tstamp_type ] [ -m module ]</span><br><span class="line">         [ -M secret ] [ --number ] [ --print ] [ -Q in|out|inout ]</span><br><span class="line">         [ -r file ] [ -s snaplen ] [ -T type ] [ --version ]</span><br><span class="line">         [ -V file ] [ -w file ] [ -W filecount ] [ -y datalinktype ]</span><br><span class="line">         [ -z postrotate-command ] [ -Z user ]</span><br><span class="line">         [ --time-stamp-precision=tstamp_precision ]</span><br><span class="line">         [ --micro ] [ --nano ]</span><br><span class="line">         [ expression ]</span><br></pre></td></tr></table></figure>
 </blockquote>
 </blockquote>
-<p><img src="./img/tcpdump_help.png" alt="tcpdump_help"></p>
-<h5 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h5><p>![tcpdump -arg example](./img/tcpdump -arg example.png)</p>
+<p><img src="tcpdump_help.png" alt="tcpdump_help"></p>
+<h5 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h5><p>![tcpdump -arg example](tcpdump -arg example.png)</p>
 <p>-a 将网络地址转变为名字 ，如127.0.0.1 =&gt; localhost</p>
 <p>-A 把监听到的数据包以ACSII形式打印出来  如上图打印出了HTTP报头</p>
 <p>-n 将网络地址域名转换为IP地址，如 localhost =&gt; 127.0.01,与-a相对</p>
@@ -17,7 +17,7 @@ tcpdump - dump traffic on a network
 <p>-r 与-w参数相对于，读取指定文件的数据包</p>
 <p>-D 显示所有网卡(接口)</p>
 <p>-q 简化输出抓包消息,如下图，不加-q输出在控制台的消息较为完整，加上-q则只输出使用的协议，返回的报文长度</p>
-<p>![tcpdump -q](./img/tcpdump -q.png)</p>
+<p>![tcpdump -q](tcpdump -q.png)</p>
 <p>-p 无混合模式,将网卡设置为非混杂模式，不能与host或broadcast一起使用</p>
 <blockquote>
 <blockquote>
@@ -28,11 +28,11 @@ tcpdump - dump traffic on a network
 </blockquote>
 <p>-h –help打印tcpdump使用到的各种参数。如上图一</p>
 <p>-e 打印诸如以太网和IEEE 802.11之类协议的MAC层地址，如下图</p>
-<p>![tcpdump -e](./img/tcpdump -e.png)</p>
+<p>![tcpdump -e](tcpdump -e.png)</p>
 <p>-c 后跟数字，打印、监控指定数量的包，达到数量后退出监控.如下图，-c 10，打印十条记录后tcpdump关闭运行</p>
-<p>![tcpdump -c 10](./img/tcpdump -c 10.png)</p>
+<p>![tcpdump -c 10](tcpdump -c 10.png)</p>
 <p>-v 输出详细信息,包括ttl和服务类型的信息,如下图</p>
-<p>![tcpdump -v](./img/tcpdump -v.png)</p>
+<p>![tcpdump -v](tcpdump -v.png)</p>
 <p>-vv 输出详细的报文信息,如下图</p>
 <h5 id="BPF-filters"><a href="#BPF-filters" class="headerlink" title="BPF filters"></a>BPF filters</h5><blockquote>
 <blockquote>
@@ -83,7 +83,7 @@ tcpdump - dump traffic on a network
 <p>Optional RFC854 telnet codes parser and responder.</p>
 </blockquote>
 </blockquote>
-<p>![netcat -help(nc -help)](./img/netcat -help.png)</p>
+<p>![netcat -help(nc -help)](netcat -help.png)</p>
 <p>Netcat是一款非常出名的网络工具，简称“NC”,有渗透测试中的“瑞士军刀”之称。它可以用作端口监听、端口扫描、远程文件传输、还可以实现远程shell等功能。总之功能强大，可以用一句较为风趣的话来描述NC的强大——“你的想象力是局限NC的瓶颈”。</p>
 <h5 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h5><p><strong>-h help,帮助</strong></p>
 <p><strong>-p 设置本地主机使用的通信端口</strong></p>
@@ -97,23 +97,23 @@ tcpdump - dump traffic on a network
 <p><strong>-n 直接使用IP地址，而不通过域名服务器</strong></p>
 <h6 id="连接到远程主机"><a href="#连接到远程主机" class="headerlink" title="连接到远程主机"></a>连接到远程主机</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -nvv ip port</span><br></pre></td></tr></table></figure>
 
-<p>![nc -nvv](./img/netcat -nvv.png)</p>
+<p>![nc -nvv](netcat -nvv.png)</p>
 <h6 id="监听本地主机"><a href="#监听本地主机" class="headerlink" title="监听本地主机"></a>监听本地主机</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -l -p port</span><br></pre></td></tr></table></figure>
 
-<p>![nc -l](./img/netcat -l.png)</p>
-<p>![nc -l http](./img/netcat -l http.png)</p>
+<p>![nc -l](netcat -l.png)</p>
+<p>![nc -l http](netcat -l http.png)</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -l -p port &gt; file</span><br></pre></td></tr></table></figure>
 
-<p>![netcat -l file](./img/netcat -l file.png)</p>
+<p>![netcat -l file](netcat -l file.png)</p>
 <h6 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -v ip port</span><br></pre></td></tr></table></figure>
 
-<p>![netcat -v](./img/netcat -v.png)</p>
+<p>![netcat -v](netcat -v.png)</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -v -z ip port_start-port_end</span><br></pre></td></tr></table></figure>
 
-<p>![netcat -v -z](./img/netcat -v -z.png)</p>
+<p>![netcat -v -z](netcat -v -z.png)</p>
 <h6 id="连接远程系统"><a href="#连接远程系统" class="headerlink" title="连接远程系统"></a>连接远程系统</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc ip port</span><br></pre></td></tr></table></figure>
 
-<p>![netcat ip port](./img/netcat ip port.png)</p>
+<p>![netcat ip port](netcat ip port.png)</p>
 <h6 id="FTP匿名探索"><a href="#FTP匿名探索" class="headerlink" title="FTP匿名探索"></a>FTP匿名探索</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc ip 21</span><br></pre></td></tr></table></figure>
 
 <h6 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h6><p>传输端</p>
@@ -124,7 +124,7 @@ tcpdump - dump traffic on a network
 <p>接收端</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -l port &gt; file</span><br></pre></td></tr></table></figure>
 
-<p>![netcat file](./img/netcat file.png)</p>
+<p>![netcat file](netcat file.png)</p>
 </div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-05-03</span><i class="fa fa-tag"></i><a class="tag" href="/tags/tcpdump/" title="tcpdump">tcpdump </a><a class="tag" href="/tags/netcat/" title="netcat">netcat </a><a class="tag" href="/tags/tcp-udp/" title="tcp/udp">tcp/udp </a><span class="leancloud_visitors"></span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="javascript:join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://yoursite.com/2020/05/03/tcpdump &amp; netcat/,By Blog,Tcpdump &amp; Netcat,;" target="_blank" rel="noopener"></a></div></div><div class="pagination"><ul class="clearfix"></ul></div><script src="/js/visitors.js"></script><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@latest/dist/Valine.min.js"></script><script>var valine = new Valine({
   el:'#vcomments',
   notify:false || false, 
