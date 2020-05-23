@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Core"><title>Segmentation fault error 4 · By Blog</title><meta name="description" content="Segmentation fault
+Segmentation fault,段错误,在做内存操作时经常有可能会遇到,比如访问未申请的地址等。
+这里有个StackOverflow上对段错误的解释:
+
+A segmentation fault is when your program attempts "><meta name="keywords" content="极限博客,极限Blog,博客,极限"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="/js/jquery.js"></script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">By Blog</a></h3><div class="description"><p>心之所愿，无事不成。<br> Nothing is impossible to a willing heart.</p></div></div></div><ul class="social-links"><li><a href="https://github.com/ggg1235" target="_blank" rel="noopener"><i class="fa fa-github"></i></a></li><li><a href="mailto:gxk1910@outlook.com"><i class="fa fa-envelope"></i></a></li><li><a href="http://sighttp.qq.com/authd?IDKEY=" target="_blank" rel="noopener"><i class="fa fa-qq"></i></a></li><li><a href="https://www.zhihu.com/people/sera-3-87" target="_blank" rel="noopener"><i class="fa fa-mortar-board"></i></a></li></ul><div class="footer"><div class="p"> <span>© 2020 - 2020 </span><i class="fa fa-star"></i><span> Core</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span> & </span><a href="https://github.com/mrcore/hexo-theme-Anatole-Core" target="_blank">Anatole-Core.  </a><a href="http://www.beian.miit.gov.cn/" target="_blank">&nbsp;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/tags">标签</a></li><li><a href="/about">关于</a></li><li><a href="/guestbook">留言</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>Segmentation fault error 4</a></h3></div><div class="post-content"><h2 id="Segmentation-fault"><a href="#Segmentation-fault" class="headerlink" title="Segmentation fault"></a>Segmentation fault</h2><hr>
+<p>Segmentation fault,段错误,在做内存操作时经常有可能会遇到,比如访问未申请的地址等。</p>
+<p>这里有个StackOverflow上对段错误的解释:</p>
+<blockquote>
+<p>A segmentation fault is when your program attempts to access memory it has either not been assigned by the operating system, or is otherwise not allowed to access.</p>
+<p>“segmentation” is the concept of each process on your computer having its own distinct <em>virtual*address space. Thus, when Process A reads memory location 0x877, it reads information residing at a *different</em> physical location in RAM than when Process B reads its own 0x877.</p>
+<p>All modern operating systems support and use segmentation, and so all can produce a segmentation fault.</p>
+<p>To deal with a segmentation fault, fix the code causing it. It is generally indicative of poor programming, especially boundary-condition errors, incorrect pointer manipulation, or invalid assumptions about shared libraries. Sometimes segfaults, like any problem, may be caused by faulty hardware, but this is usually not the case.</p>
+</blockquote>
+<h3 id="signal-11"><a href="#signal-11" class="headerlink" title="signal 11"></a>signal 11</h3><p><strong>这两天在VS2019中远程调试代码时,遇到了一个段错误,直接导致编译都通不过</strong></p>
+<p>提示的错误信息如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error : ld terminated with signal 11 [Segmentation fault]</span><br></pre></td></tr></table></figure>
+
+<p>不难看出段错误发生在链接中,编译器找不到链接库正确的地址,直接访问了没有申请过的地址导致段错误</p>
+<p>远程环境如下图所示:</p>
+<p><img src="img/linux_core_version.png" alt="linux_core_version"></p>
+<p><strong>在服务器上通过dmesg指令查看此次遇到的段错误,如下图所示</strong></p>
+<p><img src="img/dmesg.png" alt=""></p>
+<p>服务器dmesg指令显示的段错误为error4</p>
+<p>随手写了个修改未申请地址的段错误</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">const</span> <span class="keyword">char</span> **argv,<span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *p = <span class="literal">nullptr</span>;</span><br><span class="line">    p[<span class="number">10</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">delete</span> p;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译之后通过dmesg指令查看段错误,显示为error6</p>
+<p>稍微修改代码，把写操作改成读操作来访问未申请地址，显示的段错误为error4</p>
+<p>由此可以确定,编译中遇到的段错误Signal 11应该也是访问了未申请的地址导致的</p>
+<p><strong>libbfd-2.30-system.so显示异常，libbfd-2.30-system.so明显属于系统带的动态库</strong></p>
+<p><strong>不过链接器怎么会访问未申请的地址导致段错误呢?</strong></p>
+<hr>
+<p>通过一阵google,在网上找到不少关于signal 11的帖子</p>
+<p>其中有提到是硬件问题的(最早排除,远程环境在阿里云上,并没有提示有什么异常的消息),然后也有说把swap内存改大的(试了一下,完全没有用,不适用于我这个问题)</p>
+<p><strong>之后在StackOverflow看了个感觉还算靠谱的回答</strong></p>
+<p><img src="img/stackoverflow1.png" alt=""></p>
+<p><img src="img/stackoverflow2.png" alt=""></p>
+<p>按照这个回答的信息删除服务器响应位置生成的obj文件,重新进行调试,结果如下</p>
+<p><img src="img/error1.png" alt=""></p>
+<p>不难看出编译时并没有生成新的obj文件,如果在远程环境下通过g++手动生成obj文件后结果又回到上面的段错误 signal 6</p>
+<p><strong>继续Google，看到一下帖子</strong></p>
+<p><img src="img/lnk.png" alt=""></p>
+<p>他是链接的静态库有问题,考虑到我这里是ld报段错误,链接错误,并且在Linux下使用的静态库文件后缀为lib，故保留为此错误(emmmmmmmm…….记得好像有个骚操作可以在linux中使用.lib静态库,我傻了)</p>
+<p><a href="https://utcc.utoronto.ca/~cks/space/blog/linux/KernelSegfaultErrorCodes" target="_blank" rel="noopener">linux kernel Segfault Error</a></p>
+<blockquote>
+<p><code>error 4</code>: (Data) read from an unmapped area.</p>
+<p>This is your classic wild pointer read. On 64-bit x86, most of the address space is unmapped so even a program that uses a relatively large amount of memory is hopefully going to have most bad pointers go to memory that has no mappings at all.</p>
+<p>A faulting address of 0 is a NULL pointer and falls into <em>page zero</em>, the lowest page in memory. <a href="https://utcc.utoronto.ca/~cks/space/blog/linux/KernelPageZeroProblem" target="_blank" rel="noopener">The kernel prevents people from mapping page zero</a>, and in general low memory is never mapped, so reads from small faulting addresses should always be error 4s.</p>
+</blockquote>
+<blockquote>
+<p><code>error 6</code>: (data) write to an unmapped area.</p>
+<p>This is your classic write to a wild or corrupted pointer, including to (or through) a null pointer. As with reads, writes to guard pages <code>mmap()</code>‘d with <code>PROT_NONE</code> will generally show up as this, not as ‘write to a mapped area that denies permissions’.</p>
+<p>(As with reads, all writes with small faulting addresses should be error 6s because no one sane allows low memory to be mapped.)</p>
+</blockquote>
+<h3 id="LNK2019、LNK2001"><a href="#LNK2019、LNK2001" class="headerlink" title="LNK2019、LNK2001"></a><strong>LNK2019、LNK2001</strong></h3><p>之前由于遇到编译过程中的段错误Signal 11,把之前使用的静态.lib换成linux下静态文件.a,结果编译还是失败,出现了与之前不一样的错误,如图所示</p>
+<p><img src="img/DSO.png" alt=""></p>
+<p><img src="img/libpthreadDSO.png" alt=""></p>
+<p><strong>google出来的都说编译的时候要带上-lpthread(我编译的时候带上了还出现这错误,其实原本就带了)</strong></p>
+<p>觉得可能是远程环境下apt的库版本不对,无奈下把调试环境换成了windows,编译过程中又遇到连接问题<strong>LNK2019、LNK2001</strong></p>
+<p><img src="img/Lnk2001&2019.png" alt=""></p>
+<p>Google无果,Google找到的解决方法不适于我这个问题</p>
+<p>尝试自己在windows下编译安装libcurl来使用</p>
+<p><strong>在安装教程中发现windows下使用libcurl需要添加依赖库ws2_32.lib;winmm.lib;wldap32.lib(windows网络编程需要导入这几个库，可能是libcurl的作者在宏里面没包含这几个库),并添加预编译宏CURL_STATICLIB(好像是没法找到相应的函数)</strong></p>
+<p>加入依赖库与预编译宏以后结果一样，编译依然Lnk2001、2019</p>
+<p>最后发现，引入的几个包中，有几个函数功能重复的，导致错误，有几个lib文件集合了另外几个lib</p>
+<p><img src="img/allLibs.png" alt=""></p>
+<p>以上是所有的包</p>
+<p>其中libcurl-openssl-zlib-d.lib中就包含了libcurld.lib跟ssl</p>
+<p><img src="img/finLibs.png" alt=""></p>
+<p><strong>把重复的库删掉就能正常通过编译了,接下来的错误就是代码的问题了</strong></p>
+<p><strong>PS：编译成功后，因为某次debug断点太多，导致网络超时…..</strong> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-05-06</span><i class="fa fa-tag"></i><a class="tag" href="/tags/Linux/" title="Linux">Linux </a><a class="tag" href="/tags/linkers/" title="linkers">linkers </a><a class="tag" href="/tags/segmentation-fault/" title="segmentation fault">segmentation fault </a><span class="leancloud_visitors"></span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="javascript:join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://yoursite.com/2020/05/06/Segmentationfault&amp;Linker/,By Blog,Segmentation fault error 4,;" target="_blank" rel="noopener"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2020/05/10/PrintinOrder/" title="1114. Print in Order">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2020/05/03/tcpdump%20&amp;%20netcat/" title="Tcpdump &amp; Netcat">下一篇</a></li></ul></div><script src="/js/visitors.js"></script><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@latest/dist/Valine.min.js"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'uoCF2ur53Q9i2cRch7HVQQnR-9Nh9j0Va',
+  app_key:'mR0e47nHdEmmpu5uOtpDlEmO',
+  placeholder:'念念不忘，必有回响...',
+  path: window.location.pathname,
+  serverURLs: '',
+  visitor:true,
+  recordIP:true,
+  avatar:'mp'
+})</script></div></div></div></div><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/add-bookmark.js"></script><script src="/js/baidu-tongji.js"></script></body></html>
