@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Core"><title>Tcpdump & Netcat · By Blog</title><meta name="description" content="tcpdumptcpdump_zine
+
+
+tcpdump - dump traffic on a network 
+12345678910111213tcpdump [ -AbdDefhHIJKlLnNOpqStuUvxX# ] [ -B buffer_size ]         [ -c co"><meta name="keywords" content="极限博客,极限Blog,博客,极限"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="/js/jquery.js"></script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">By Blog</a></h3><div class="description"><p>心之所愿，无事不成。<br> Nothing is impossible to a willing heart.</p></div></div></div><ul class="social-links"><li><a href="https://github.com/ggg1235" target="_blank" rel="noopener"><i class="fa fa-github"></i></a></li><li><a href="mailto:gxk1910@outlook.com"><i class="fa fa-envelope"></i></a></li><li><a href="http://sighttp.qq.com/authd?IDKEY=" target="_blank" rel="noopener"><i class="fa fa-qq"></i></a></li><li><a href="https://www.zhihu.com/people/sera-3-87" target="_blank" rel="noopener"><i class="fa fa-mortar-board"></i></a></li></ul><div class="footer"><div class="p"> <span>© 2020 - 2020 </span><i class="fa fa-star"></i><span> Core</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span> & </span><a href="https://github.com/mrcore/hexo-theme-Anatole-Core" target="_blank">Anatole-Core.  </a><a href="http://www.beian.miit.gov.cn/" target="_blank">&nbsp;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/tags">标签</a></li><li><a href="/about">关于</a></li><li><a href="/guestbook">留言</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>Tcpdump &amp; Netcat</a></h3></div><div class="post-content"><h3 id="tcpdump"><a href="#tcpdump" class="headerlink" title="tcpdump"></a>tcpdump</h3><p><a href="tcpdump-zine.pdf">tcpdump_zine</a></p>
+<blockquote>
+<blockquote>
+<p>tcpdump - dump traffic on a network </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tcpdump [ -AbdDefhHIJKlLnNOpqStuUvxX# ] [ -B buffer_size ]</span><br><span class="line"></span><br><span class="line">         [ -c count ] [ --count ] [ -C file_size ]</span><br><span class="line">         [ -E spi@ipaddr algo:secret,... ]</span><br><span class="line">         [ -F file ] [ -G rotate_seconds ] [ -i interface ]</span><br><span class="line">         [ --immediate-mode ] [ -j tstamp_type ] [ -m module ]</span><br><span class="line">         [ -M secret ] [ --number ] [ --print ] [ -Q in|out|inout ]</span><br><span class="line">         [ -r file ] [ -s snaplen ] [ -T type ] [ --version ]</span><br><span class="line">         [ -V file ] [ -w file ] [ -W filecount ] [ -y datalinktype ]</span><br><span class="line">         [ -z postrotate-command ] [ -Z user ]</span><br><span class="line">         [ --time-stamp-precision=tstamp_precision ]</span><br><span class="line">         [ --micro ] [ --nano ]</span><br><span class="line">         [ expression ]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<p><img src="img/tcpdump_help.png" alt="tcpdump_help"></p>
+<h5 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h5><p><img src="img/tcpdump_arg_example.png" alt="tcpdump -arg example"></p>
+<p>-a 将网络地址转变为名字 ，如127.0.0.1 =&gt; localhost</p>
+<p>-A 把监听到的数据包以ACSII形式打印出来  如上图打印出了HTTP报头</p>
+<p>-n 将网络地址域名转换为IP地址，如 localhost =&gt; 127.0.01,与-a相对</p>
+<p>-i 指定tcpdump监听的网卡，如上图监听了eth0</p>
+<p>-w 后跟文件名，将监听到的数据包写入到指定文件中</p>
+<p>-r 与-w参数相对于，读取指定文件的数据包</p>
+<p>-D 显示所有网卡(接口)</p>
+<p>-q 简化输出抓包消息,如下图，不加-q输出在控制台的消息较为完整，加上-q则只输出使用的协议，返回的报文长度</p>
+<p><img src="img/tcpdump_q.png" alt="tcpdump -q"></p>
+<p>-p 无混合模式,将网卡设置为非混杂模式，不能与host或broadcast一起使用</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>makes sure you only get packets that are to or from your comput</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>-h –help打印tcpdump使用到的各种参数。如上图一</p>
+<p>-e 打印诸如以太网和IEEE 802.11之类协议的MAC层地址，如下图</p>
+<p><img src="img/tcpdump_e.png" alt="tcpdump -e"></p>
+<p>-c 后跟数字，打印、监控指定数量的包，达到数量后退出监控.如下图，-c 10，打印十条记录后tcpdump关闭运行</p>
+<p><img src="img/tcpdump_c_10.png" alt="tcpdump -c 10"></p>
+<p>-v 输出详细信息,包括ttl和服务类型的信息,如下图</p>
+<p><img src="img/tcpdump_v.png" alt="tcpdump -v"></p>
+<p>-vv 输出详细的报文信息,如下图</p>
+<h5 id="BPF-filters"><a href="#BPF-filters" class="headerlink" title="BPF filters"></a>BPF filters</h5><blockquote>
+<blockquote>
+<p>tcpdump uses a small language called BPF to let you filter packet</p>
+</blockquote>
+</blockquote>
+<p>可以用and或or连接多条语句</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -i eth0 -n host www.baidu.com</span><br><span class="line">tcpdump -i eth0 -n 'host www.baidu.com'</span><br></pre></td></tr></table></figure>
+
+<p>BPF filters可以用’’包括也可以不用，为了方便与tcpdump参数区分，建议使用’’</p>
+<p><strong>src源地址</strong></p>
+<p><strong>dst目标地址</strong></p>
+<p><strong>ip icmp arp rarp 和 tcp、udp、icmp过滤数据报的类型</strong></p>
+<p><strong>host包含src与dst</strong></p>
+<p><strong>port过滤端口</strong></p>
+<p><strong>逻辑运算符：&amp;&amp; == and，|| == or ，! == not</strong></p>
+<blockquote>
+<blockquote>
+<p><strong>icmptype：表示icmp报文中类弄字节的偏移量</strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>icmpcode:表示icmp报文中编码字节的偏移量</strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>tcpflags:表示TCP报文中标志位字节的偏移量</strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>proto[x:y] : 过滤从x 字节开始的y 字节数。比如ip[2:2]过滤出3、4 字节（第一<br>字节从0 开始排）<br>proto[x:y] &amp; z = 0 : proto[x:y]和z 的与操作为0<br>proto[x:y] &amp; z !=0 : proto[x:y]和z 的与操作不为0<br>proto[x:y] &amp; z = z : proto[x:y]和z 的与操作为z<br>proto[x:y] = z : proto[x:y]等于z</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="netcat"><a href="#netcat" class="headerlink" title="netcat"></a>netcat</h3><blockquote>
+<blockquote>
+<p> Netcat is a featured networking utility which reads and writes data across network connections, using the TCP/IP protocol. </p>
+<p>It is designed to be a reliable “back-end” tool that can be used directly or easily driven by other programs and scripts. At the same time, it is a feature-rich network debugging and exploration tool, since it can create almost any kind of connection you would need and has several interesting built-in capabilities.  </p>
+<p>It provides access to the following main features:</p>
+<p>Outbound and inbound connections, TCP or UDP, to or from any ports.</p>
+<p>Featured <strong>tunneling mode</strong> which allows also special tunneling such as UDP to TCP, with the possibility of specifying all network parameters (source port/interface, listening port/interface, and the remote host allowed to connect to the tunnel.</p>
+<p>Built-in port-scanning capabilities, with randomizer.</p>
+<p>Advanced usage options, such as buffered send-mode (one line every N seconds), and hexdump (to stderr or to a specified file) of trasmitted and received data.</p>
+<p>Optional RFC854 telnet codes parser and responder.</p>
+</blockquote>
+</blockquote>
+<p><img src="img/netcat_help.png" alt="netcat -help(nc -help)"></p>
+<p>Netcat是一款非常出名的网络工具，简称“NC”,有渗透测试中的“瑞士军刀”之称。它可以用作端口监听、端口扫描、远程文件传输、还可以实现远程shell等功能。总之功能强大，可以用一句较为风趣的话来描述NC的强大——“你的想象力是局限NC的瓶颈”。</p>
+<h5 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h5><p><strong>-h help,帮助</strong></p>
+<p><strong>-p 设置本地主机使用的通信端口</strong></p>
+<p><strong>-l listen监听模式</strong></p>
+<p><strong>-w 设置等待时间，超时秒数</strong></p>
+<p><strong>-z 使用0输入/输出模式，旨在扫描通信端口时使用</strong></p>
+<p><strong>-v 显示指令执行过程</strong></p>
+<p><strong>-u 使用UDP协议</strong></p>
+<p><strong>-s &lt;来源位址&gt; 设置本地主机送出数据包的IP地址</strong></p>
+<p><strong>-l 使用监听模式，管控传入的资料</strong></p>
+<p><strong>-n 直接使用IP地址，而不通过域名服务器</strong></p>
+<h6 id="连接到远程主机"><a href="#连接到远程主机" class="headerlink" title="连接到远程主机"></a>连接到远程主机</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -nvv ip port</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/netcat_nvv.png" alt="nc -nvv"></p>
+<h6 id="监听本地主机"><a href="#监听本地主机" class="headerlink" title="监听本地主机"></a>监听本地主机</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -l -p port</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/netcat_l.png" alt="nc -l"></p>
+<p><img src="img/netcat_l_http.png" alt="nc -l http"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -l -p port &gt; file</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/netcat_l_file.png" alt="netcat -l file"></p>
+<h6 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -v ip port</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/netcat_v.png" alt="netcat -v"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -v -z ip port_start-port_end</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/netcat_v_z.png" alt="netcat -v -z"></p>
+<h6 id="连接远程系统"><a href="#连接远程系统" class="headerlink" title="连接远程系统"></a>连接远程系统</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc ip port</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/netcat_ip_port.png" alt="netcat ip port"></p>
+<h6 id="FTP匿名探索"><a href="#FTP匿名探索" class="headerlink" title="FTP匿名探索"></a>FTP匿名探索</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc ip 21</span><br></pre></td></tr></table></figure>
+
+<h6 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h6><p>传输端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc ip port &lt; file</span><br></pre></td></tr></table></figure>
+
+
+
+<p>接收端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -l port &gt; file</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/netcat_file.png" alt="netcat file"></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-05-03</span><i class="fa fa-tag"></i><a class="tag" href="/tags/tcpdump/" title="tcpdump">tcpdump </a><a class="tag" href="/tags/netcat/" title="netcat">netcat </a><a class="tag" href="/tags/tcp-udp/" title="tcp/udp">tcp/udp </a><span class="leancloud_visitors"></span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="javascript:join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://yoursite.com/2020/05/03/tcpdump &amp; netcat/,By Blog,Tcpdump &amp; Netcat,;" target="_blank" rel="noopener"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2020/05/06/Segmentationfault&amp;Linker/" title="Segmentation fault &amp; Linker">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2020/05/03/twoSum/" title="1. Two Sum">下一篇</a></li></ul></div><script src="/js/visitors.js"></script><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@latest/dist/Valine.min.js"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'uoCF2ur53Q9i2cRch7HVQQnR-9Nh9j0Va',
+  app_key:'mR0e47nHdEmmpu5uOtpDlEmO',
+  placeholder:'念念不忘，必有回响...',
+  path: window.location.pathname,
+  serverURLs: '',
+  visitor:true,
+  recordIP:true,
+  avatar:'mp'
+})</script></div></div></div></div><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/add-bookmark.js"></script><script src="/js/baidu-tongji.js"></script></body></html>
